@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from random import randint
 import uvicorn
 
-_id = 0
+
 app = FastAPI()
 
 
@@ -63,6 +63,15 @@ data = [
 @app.get("/")
 async def root():
     return data
+
+
+@app.get("/{id}")
+async def root(id):
+    _len = len(data)
+    if int(id) > _len:
+        return {"error": "no data"}
+    else:
+        return data[int(id) - 1]
 
 
 @app.get("/random")
